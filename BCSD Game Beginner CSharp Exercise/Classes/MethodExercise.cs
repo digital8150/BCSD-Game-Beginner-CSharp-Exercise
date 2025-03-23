@@ -47,7 +47,7 @@ namespace BCSD_Game_Beginner_CSharp_Exercise.Classes
         public static void Swap(ref int num1, ref int num2)
         {
             int temp = num1;
-            num1 = temp;
+            num1 = num2;
             num2 = temp;
         }
     }
