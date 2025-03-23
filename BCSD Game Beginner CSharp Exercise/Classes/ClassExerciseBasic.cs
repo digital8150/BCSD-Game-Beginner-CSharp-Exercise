@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,6 +71,55 @@ namespace BCSD_Game_Beginner_CSharp_Exercise.Classes
             player01.TakeDamage(100);
             player02 = new Player();
             player02.TakeDamage(200);
+        }
+    }
+
+
+    public abstract class AbstractEntity
+    {
+        protected int damage;
+        protected int currentHP;
+
+        public abstract void Attack(AbstractEntity Target);
+        public void TakeDamage(int damage)
+        {
+            if(currentHP > damage)
+            {
+                currentHP -= damage;
+                Console.WriteLine($"체력이 {damage} 감소!");
+            }
+            else
+            {
+                Console.WriteLine("DIE");
+            }
+        }
+    }
+
+    public class NewGoblin : AbstractEntity
+    {
+        public NewGoblin(int damage, int hp)
+        {
+            base.damage = damage;
+            currentHP = hp;
+        }
+
+        public override void Attack(AbstractEntity Target)
+        {
+            Console.WriteLine("고블린의 몽둥이 스매시");
+            Target.TakeDamage(damage);
+        }
+    }
+
+    interface IMovingEntity
+    {
+        void MoveTo(Vector3 destination);
+    }
+
+    public class MovingGoblin : IMovingEntity
+    {
+        public void MoveTo(Vector3 destination)
+        {
+            Console.WriteLine($"{destination}까지 걸어서 이동.");
         }
     }
 }
